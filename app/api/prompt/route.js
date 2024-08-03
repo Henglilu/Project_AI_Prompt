@@ -5,8 +5,8 @@ export const GET = async (request) => {
     try {
         await connectToDB()
 
-        const prompts = await Prompt.find({}).populate('creator')
-
+        const timestamp = new Date().getTime();
+        const prompts = await Prompt.find({}).populate('creator').sort({ timestamp: -1 });
 
         return new Response(JSON.stringify(prompts), { status: 200 });
     } catch (error) {
